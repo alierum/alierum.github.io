@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="content-language" content="en" />
+  <meta http-equiv="Expires" content="now" />
+  <meta name="robots" content="ALL, INDEX, FOLLOW" />
+  <meta name="resource-type" content="document" />
+  <meta name="author" content="alierum" />
+  <meta name="distribution" content="Global" />
+  <meta name="description" content="Crossbreeding" />
+  <meta name="keywords" content="crossbreeding, RUST, game, tool, plants, planter, pumpkin, potato, corn, hemp" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="DC.title" content="Crossbreeding. A Farmer tool for RUST" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Crossbreeding. A Farmer tool for RUST" />
+  <link rel="stylesheet" href="css/styles.css" type="text/css" />
+  <title>XBreeding. The RUST farmer's assistant</title>
+  <script language="JavaScript" type="text/javascript" src="js/scripts.js"></script>
+</head>
+<body onload="init()">
+<noscript><div class="nojs">This page needs javascript enabled in your browser</div></noscript>
+
+<div class="main">
+    <div class="title"><span class="xbreeding">XBreeding</span> - The RUST farmer's assistant<div class="alierum">by alierum</div></div> 
+    <div class="controls">
+        <div class="clones">
+            <label id="label_clones" for="clones">Clones:</label>
+            <textarea wrap="on" name="clones" id="clones" cols="6" rows="10" placeholder="" onfocusout="validate_textarea();" onkeyup="validate_textarea();"></textarea>
+            <input type="button" id="reset" value="RESET" onclick="reset_form();" />
+        </div>
+        <div class="head">
+            <div class="target">
+                <label class="label_target" id="label_target" for="sliders">Target:</label>
+                <div id="sliders" class="sliders">
+                    <div>
+                        <input type="range" name="sliderH" min="0" max="6" value="0" class="sliderH" id="sliderH" oninput="validate_sliders();">
+                        <span id="targetH">H</span>
+                    </div>
+                    <div>
+                        <input type="range" name="sliderY" min="0" max="6" value="0" class="sliderY" id="sliderY" oninput="validate_sliders();">
+                        <span id="targetY">Y</span>
+                    </div>
+                    <div>
+                        <input type="range" name="sliderG" min="0" max="6" value="0" class="sliderG" id="sliderG" oninput="validate_sliders();">
+                        <span id="targetG">G</span>
+                    </div>
+                </div>
+            </div>
+            <div class="calculate">
+               <input type="button" id="calculate" value="CALCULATE" onclick="calculate();" />
+            </div>
+        </div>
+        <div id="progress">
+            <div id="bar"></div>
+        </div>
+        <div class="results" id="results">
+            <label id="label_results">Results:</label>
+            <div class="cross" id="cross"></div>
+        </div>
+    </div>
+    <div class="footer">
+      This software is in <em>beta</em>. That means that <strong>you should make a copy of your clones</strong> before trying the solutions proposed here.
+    </div> 
+</div>
+
+</body>
+</html>

@@ -1,0 +1,329 @@
+
+html {
+  --scrollbarBG: gray;
+  --thumbBG: maroon;
+}
+body::-webkit-scrollbar {
+  width: 11px;
+}
+body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+body::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG) ;
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}
+
+
+div.controls, div.title, div.footer {
+  background-color: navajowhite;
+  border-color: maroon;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 10px;
+  width: 760px;
+  margin: 5px auto;
+  padding: 10px;
+  overflow: auto;
+  font-family: sans;
+  font-size: 15px;
+}
+
+div.title {
+    font-size: 110%;
+    font-weight: bold;
+    color: maroon;
+    font-family: verdana;
+}
+span.xbreeding {
+  font-size: 170% !important;
+/*   text-shadow: 2px 2px 5px yellow; */
+  color: yellow;
+  text-shadow: 2px 2px 2px black, 1px 1px 25px maroon, 0 0 6px red;
+}
+div.alierum {
+  float: right;
+  font-size: 60%;
+  margin-top: 20px;
+  color: red;
+}
+div.footer {
+	font-size: 70%;
+	color: maroon;
+	text-align: center;
+}
+
+label {
+  color: maroon;
+  margin-bottom: 5px;
+}
+
+div.clones {
+  width: 100px;
+  float: left;
+  margin: 10px 0px 10px 10px;
+}
+div.clones textarea {
+  background-color: lightyellow;
+  border-color: maroon;
+  border-style: solid;
+  border-width: 1px;
+  font-size: 130%;
+  font-weight: bold;
+  resize: none;
+  padding: 5px;
+  margin-top: 5px;
+  height: 330px;
+  text-transform: uppercase;
+  overflow: hidden scroll;
+  outline: none;
+  border-radius: 4px;
+}
+
+div.head {
+  float: left;
+  width: 630px;
+}
+
+div.target {
+  width: 350px;
+  float: left;
+  margin: 10px;
+}
+
+div.sliders {
+  background-color: lightyellow;
+  border-color: maroon;
+  border-style: solid;
+  border-width: 1px;
+  width: 100%;
+  font-size: 130%;
+  font-weight: bold;
+  padding: 5px;
+  text-align: center;
+  margin-top: 5px;
+  text-transform: uppercase;
+  outline: none;
+  border-radius: 4px;
+  height: 60px
+}
+div.sliders div {
+    width: 33%;
+    float: left;
+}
+div.sliders div span {
+    width: 100%;
+}
+
+div.calculate {
+   float: right;
+   width: 240px;
+   margin-top: 30px;
+}
+
+::-moz-focus-inner {border:0;}
+input[type=button] {
+   font-weight: bold;
+   background-color: white;
+   border-color: maroon;
+   border-radius: 12px;
+   cursor: pointer;
+   margin: 0;
+   transition: 0.3s;
+   width: 100%;
+   outline: none;
+}
+#calculate {
+   padding: 13px;
+   font-size: 150%;
+   height: 75px;
+}
+#reset {
+   padding: 5px;
+   font-size: 100%;
+   margin-top: 5px;
+}
+
+input[type=button]:hover {
+   background-color: maroon;
+   color: yellow;
+}
+input[type=button]:active {
+   background-color: yellow;
+   color: maroon;
+}
+input[type=button]:disabled {
+   background-color: lightyellow;
+   color: grey;
+}
+input[type=range] {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 90%; /* Full-width */
+  height: 15px; /* Specified height */
+  background: gray; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  margin-top: 10px;
+  cursor: pointer;
+}
+input[type=range]:hover {
+   background-color: maroon;
+}
+input[type=range]:active {
+   background-color: red;
+}
+input[type=range]:disabled {
+   background-color: grey;
+}
+
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border: 0;
+  background: url('../img/genes.png');
+}
+
+input[type=range]::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border: 0;
+  background: url('../img/genes.png');
+}
+
+.sliderY::-webkit-slider-thumb {
+  background-position:  -0px 0px !important;
+}
+.sliderY::-moz-range-thumb {
+  background-position:  -0px 0px !important; 
+}
+.sliderH::-webkit-slider-thumb {
+  background-position:  -25px 0px !important;
+}
+.sliderH::-moz-range-thumb {
+  background-position:  -25px 0px !important; 
+}
+.sliderG::-webkit-slider-thumb {
+  background-position:  -50px 0px !important;
+}
+.sliderG::-moz-range-thumb {
+  background-position:  -50px 0px !important; 
+}
+
+div.results {
+   float: left;
+   margin: 10px;
+   display: none;
+   width: 620px;
+}
+div.cross {
+  background-color: lightyellow;
+  border-color: maroon;
+  border-style: solid;
+  border-width: 1px;
+  font-size: 130%;
+  font-weight: bold;
+  padding: 5px;
+  text-align: center;
+  margin-top: 5px;
+  overflow: hidden scroll;
+  height: 240px;
+  text-align: left;
+  border-radius: 4px;
+}
+
+#progress {
+	float: left;
+	width: 620px;
+	background-color: lightyellow;
+	margin: 0 10px;
+	padding: 0px;
+	height: 5px;
+	border-radius: 4px;
+    border-color: maroon;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#bar {
+  width: 0%;
+  height: 5px;
+  background-color: maroon;
+  color: yellow;
+  text-align: center;
+  font-weight: bold;
+  line-height: 30px;
+  font-family: verdana;
+  font-size: 80%;
+  border-radius: 4px;
+}
+
+div.result {
+    width: 185px;
+    float: left;
+}
+
+div.plants {
+    width: 370px;
+    float: right;
+}
+
+div.nofound {
+  text-align: center;
+  margin-top: 100px;
+}
+
+div.line {
+/* 	width: 565px; */
+	border-width: 1px;
+	border-style: solid;
+	overflow: auto;
+	padding: 5px;
+	border-radius: 5px;
+    margin: 4px 0;
+}
+div.genes {
+/*   width: 175px; */
+  margin: 1px;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+  overflow: auto;
+  border-radius: 3px;
+  padding: 2px;
+  background-color: #444;
+  float: left;
+}
+
+div.genes span {
+   background-image: url("../img/genes.png");
+   background-color: transparent;
+   background-repeat: no-repeat;
+   background-attachment: scroll;
+   display: block;
+   float: left;
+   height: 25px;
+   width: 25px;
+   padding:0px;
+   margin: 2px;
+}
+
+span.Y { background-position:    0px 0px; }
+span.H { background-position:  -25px 0px; }
+span.G { background-position:  -50px 0px; }
+span.A { background-position:  -75px 0px; }
+span.B { background-position: -100px 0px; }
+span.C { background-position: -125px 0px; }
+span.W { background-position: -150px 0px; }
+span.X { background-position: -175px 0px; }
+span.Z { background-position: -200px 0px; }
+span.E { background-position: -225px 0px; }
