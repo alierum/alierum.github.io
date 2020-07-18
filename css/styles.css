@@ -327,3 +327,14 @@ span.W { background-position: -150px 0px; }
 span.X { background-position: -175px 0px; }
 span.Z { background-position: -200px 0px; }
 span.E { background-position: -225px 0px; }
+
+div.nojs {
+	text-align: center;
+	background-color: black;
+	height: 40px;
+	color: yellow;
+	font-size: 120%;
+	font-family: Arial;
+	line-height: 40px;
+	font-weight: bold;
+}
