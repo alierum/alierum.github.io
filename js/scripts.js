@@ -32,7 +32,7 @@ function validate_sliders() {
         spY.style.color = "red";
         spG.style.color = "red"
         sliders.style.borderColor = "red";
-        sliders.style.boxShadow = "red 0px 0px 4px 0px";
+        sliders.style.boxShadow = "red 0px 0px 5px 2px";
         return false;
     } else {
         spH.style.color = "black";
@@ -90,7 +90,7 @@ function validate_textarea() {
         return true;
     } else {
         clones.style.borderColor = "red";
-        clones.style.boxShadow = "red 0px 0px 4px 0px";
+        clones.style.boxShadow = "red 0px 0px 5px 2px";
         return false;
     }
 }
@@ -235,10 +235,14 @@ function crossing(g1, g2, g3, g4) {
   }
 }
 
-function html_genes(geno) {
-    let html = '<div class="genes">';
-    for (let g = 0; g < geno.length; g++) {
-        html += '<span class="'+geno[g]+'"></span>';
+function html_genes(geno, style) {
+    let html = '<div class="'+style+'">';
+    if (geno.length == 0) {
+        html += '';
+    } else {
+        for (let g = 0; g < geno.length; g++) {
+            html += '<span class="'+geno[g]+'"></span>';
+        }
     }
     html += '</div>';
     return html;
@@ -274,25 +278,35 @@ function calcLoop(pool, objective) {
         // add results to the html div
         let html = "";
         for (let i = 0; i < Math.min(solutions.length,20); i++) {
-            html += '<div class="line"><div class="result">';
-            html += html_genes(solutions[i][1]);
+            html += '<div class="planter"><div class="line">';
+            html += html_genes(solutions[i][2], "genes");
+            html += html_genes("", "empty");
+            html += html_genes(solutions[i][3], "genes");
+            
+            
+            html += html_genes("", "empty");
+            html += html_genes(solutions[i][1], "result");
             //html += solutions[i][0].toFixed(3);
-            html += '</div><div class="plants">';
-            for (let j = 2; j < 6; j++) {
-                html += html_genes(solutions[i][j]);
-            }
+            html += html_genes("", "empty");
+            
+            html += html_genes(solutions[i][4], "genes");
+            html += html_genes("", "empty");
+            html += html_genes(solutions[i][5], "genes");
+            
+            
+            //html += '</div><div class="plants">';
+            //for (let j = 2; j < 6; j++) {
+            //    html += html_genes(solutions[i][j]);
+            //}
             html += '</div></div>';
         }
         if (html == "") {
           html = '<div class="nofound">All green genes are not possible</div>';
         }
-        cross.innerHTML = html;
-        results.style.display = "block";
-        cross.scrollTop = 0;
+        showResults(html);
         button.disabled = false;
         button.value = "RESTART";
-        reset.disabled = true;
-          
+        
         return;
       }
       for (let j = 0; j < pool.length; j++) {
@@ -332,27 +346,32 @@ function calcLoop(pool, objective) {
   nextInteration();
 }
 
+function controls(disabled) {
+    clones.disabled = disabled;
+    slH.disabled = disabled;
+    slY.disabled = disabled;
+    slG.disabled = disabled;
+    reset.disabled = disabled;
+    let cursor = "pointer";
+    let colour = "lightyellow";
+    if (disabled) {
+        colour = "#acacac";
+    }
+    sliders.style.backgroundColor = colour;
+    clones.style.backgroundColor = colour;
+}
+
 function calculate() {
 
     if (button.value == "RESTART") {
-        clones.disabled = false;
-        slH.disabled = false;
-        slY.disabled = false;
-        slG.disabled = false;
-        button.value = "CALCULATE";
-        reset.disabled = false;
+        controls(false);
+        button.value = "CALCULATE";        
         progress(0);
         results.style.display = "none";
     } else {
         if (validate()) {
-            
-            
-            clones.disabled = true;
-            slH.disabled = true;
-            slY.disabled = true;
-            slG.disabled = true;
+            controls(true);    
             button.disabled = true;
-            reset.disabled = true;
 
             let objective = [Number(slY.value), Number(slH.value), Number(slG.value), 0, 0, 0];
             //console.log(objective);
@@ -370,8 +389,14 @@ function calculate() {
             // Calculate crosssing
             calcLoop(pool, objective);
 
+        } else {
+            showResults('<div class="nofound">Please check your inputs in <span class="red">RED</span>.</div>');
         }
     }
 }
 
-
+function showResults(html) {
+    cross.innerHTML = html;
+    results.style.display = "block";
+    cross.scrollTop = 0;
+}
