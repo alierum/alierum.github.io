@@ -2,6 +2,7 @@ XBreeding. The RUST farmer's assistant
 ======================================
 
 Copy the genes of your clones, select the desired result, and press CALCULATE.
+Try it at: [https://alierum.github.io/](https://alierum.github.io/).
 
 More info:
 ----------
@@ -16,4 +17,10 @@ TO DO:
 ------
 - Autosplit the clone list while typing.
 - Different planter configuration: 3 and 9.
+
+DONE:
+-----
 - Format the output like the actual planter configuration.
+- Link to the repository.
+- Control colours when disabled.
+- Error message when inputs are wrong.
