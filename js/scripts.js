@@ -8,13 +8,15 @@ const HY = 6;
 const YG = 7;
 const HG = 8;
 
-var clones, target, button, reset, results, cross, slH, slY, slG, spH, spY, spG, sliders, bar
+var clones, target, button, reset, results, cross, slH, slY, slG, spH, spY, spG, sliders, bar, allowX, allowW, checks;
 
 function reset_form() {
     clones.value = "";
     slH.value = 0;
     slY.value = 0;
     slG.value = 0;
+    allowX.checked = false;
+    allowW.checked = false;
     validate_sliders();
     validate_clones();
 }
@@ -83,6 +85,31 @@ function validate_clones() {
     return ok;
 }
 
+function enter_textarea() {
+    showTip("Enter your clones, one per line");
+}
+
+function exit() {
+    showTip("");
+}
+
+function enter_target() {
+    showTip("Select the desired result<br />Or set them all to zero");
+}
+
+function enter_filters() {
+    showTip("Select filters<br />Including X and W slows down the computation");
+}
+
+function enter_calculate() {
+    showTip("Calculate crossbreadings");
+}
+
+function enter_reset() {
+    showTip("Reset your inputs");
+}
+
+
 function validate_textarea() {
     if (validate_clones()) {
         clones.style.borderColor = "maroon";
@@ -115,9 +142,13 @@ function init() {
     spG = document.getElementById("targetG");
     sliders = document.getElementById("sliders");
     bar = document.getElementById("bar");
+    checks = document.getElementById("checks");
+    allowX = document.getElementById("checkX");
+    allowW = document.getElementById("checkW");
     validate_textarea();
     validate_sliders();
     progress(0);
+    showResults("");
     //console.log(extract_clones(clones.value));
   //console.log(rank("YCGHGH".split(""), count("HHHGGG",1)));
    //console.log(possible("Z", [Number(slY.value), Number(slH.value), Number(slG.value), 0, 0, 0]));
@@ -138,15 +169,9 @@ function validate() {
 }
 
 function progress(perc) {
-//     if (perc < 1) {
-//         bar.style.display = "none";
-//     } else {
-//         perc = Math.min(100, perc);
-//         bar.style.display = "block";
-//         bar.innerHTML = perc + "%";
-//     }
+    perc = Math.min(100, perc);
     bar.style.width = perc + "%";
-
+    cross.innerHTML = '<div class="tip">Calculating... '+perc+'%</div>';
 }
 
 var per = 0;
@@ -301,7 +326,7 @@ function calcLoop(pool, objective) {
             html += '</div></div>';
         }
         if (html == "") {
-          html = '<div class="nofound">All green genes are not possible</div>';
+          html = '<div class="nofound">No results found.<br />Consider including X or Y in filters.</div>';
         }
         showResults(html);
         button.disabled = false;
@@ -318,7 +343,9 @@ function calcLoop(pool, objective) {
             while (ok && g < 6) {
               geno[g] = crossing(pool[ii][g], pool[j][g], pool[k][g], pool[l][g]);
               //ok = possible(geno[g], objective);
-              ok = geno[g] != 'X' && geno[g] != 'W' && geno[g] != 'Z';
+              ok = (checkX.checked || geno[g] != 'X') && 
+                   (checkW.checked || geno[g] != 'W') && 
+                   ((checkX.checked && checkW.checked) || geno[g] != 'Z');
               g++;
             }
             if (ok) {
@@ -346,12 +373,15 @@ function calcLoop(pool, objective) {
   nextInteration();
 }
 
-function controls(disabled) {
+function controls(enabled) {
+    disabled = !enabled;
     clones.disabled = disabled;
     slH.disabled = disabled;
     slY.disabled = disabled;
     slG.disabled = disabled;
     reset.disabled = disabled;
+    checkX.disabled = disabled;
+    checkW.disabled = disabled;
     let cursor = "pointer";
     let colour = "lightyellow";
     if (disabled) {
@@ -359,18 +389,20 @@ function controls(disabled) {
     }
     sliders.style.backgroundColor = colour;
     clones.style.backgroundColor = colour;
+    checks.style.backgroundColor = colour;
 }
 
 function calculate() {
-
     if (button.value == "RESTART") {
-        controls(false);
+        controls(true);
         button.value = "CALCULATE";        
         progress(0);
-        results.style.display = "none";
+        showResults("");
+        //results.style.display = "none";
     } else {
         if (validate()) {
-            controls(true);    
+            showTip("Calculating...");
+            controls(false);    
             button.disabled = true;
 
             let objective = [Number(slY.value), Number(slH.value), Number(slG.value), 0, 0, 0];
@@ -390,13 +422,32 @@ function calculate() {
             calcLoop(pool, objective);
 
         } else {
-            showResults('<div class="nofound">Please check your inputs in <span class="red">RED</span>.</div>');
+            showTip('Please check your inputs in <span class="red">RED</span>');
         }
     }
 }
 
 function showResults(html) {
     cross.innerHTML = html;
-    results.style.display = "block";
-    cross.scrollTop = 0;
+    if (html=="") {
+        cross.style.backgroundColor = "transparent";
+        cross.style.borderStyle = "hidden";
+        cross.style.overflowY = "hidden";
+    } else {
+        cross.style.backgroundColor = "lightyellow";
+        cross.style.borderStyle = "solid";
+        cross.style.overflowY = "scroll";
+        cross.scrollTop = 0;
+    }
+}
+
+function showTip(text) {
+    if (!clones.disabled) {
+        if (text=="") {
+            cross.style.opacity = "0";
+        } else {            
+            cross.innerHTML = '<div class="tip">'+text+'</div>';
+            cross.style.opacity = "1";
+        }
+    }
 }
