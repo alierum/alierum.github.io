@@ -21,6 +21,8 @@ TO DO:
 
 DONE:
 -----
+- Filters to include X and W genes in the results.
+- Tooltips.
 - Format the output like the actual planter configuration.
 - Link to the repository.
 - Control colours when disabled.
