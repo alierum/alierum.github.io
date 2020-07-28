@@ -16,6 +16,7 @@ More info:
 
 TO DO:
 ------
+- Fix rankings when there are Xs and Ws in the solution.
 - Autosplit the clone list while typing.
 - Different planter configuration: 3 and 9.
 
