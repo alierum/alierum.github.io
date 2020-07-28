@@ -7,6 +7,7 @@ body::-webkit-scrollbar {
   width: 11px;
 }
 body {
+  font-family: verdana;
   scrollbar-width: thin;
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 }
@@ -30,7 +31,6 @@ div.controls, div.title, div.footer {
   margin: 5px auto;
   padding: 10px;
   overflow: auto;
-  font-family: sans;
   font-size: 15px;
 }
 
@@ -38,7 +38,6 @@ div.title {
     font-size: 110%;
     font-weight: bold;
     color: maroon;
-    font-family: verdana;
 }
 
 a:link {
@@ -71,7 +70,7 @@ div.alierum {
   color: red;
 }
 div.footer {
-	font-size: 70%;
+	font-size: 60%;
 	color: maroon;
 	text-align: center;
 }
@@ -79,6 +78,7 @@ div.footer {
 label {
   color: maroon;
   margin-bottom: 5px;
+  font-size: 80%;
 }
 
 div.clones {
@@ -109,12 +109,12 @@ div.head {
 }
 
 div.target {
-  width: 350px;
+  width: 310px;
   float: left;
   margin: 10px;
 }
 
-div.sliders {
+div.sliders, div.checks {
   background-color: lightyellow;
   border-color: maroon;
   border-style: solid;
@@ -138,16 +138,28 @@ div.sliders div span {
     width: 100%;
 }
 
+div.filters {
+  width: 60px;
+  float: left;
+  margin: 10px;
+}
+
+div.checks div {
+    width: 100%;
+    display: inline-table;
+}
+
 div.calculate {
    float: right;
-   width: 240px;
+   width: 200px;
    margin-top: 30px;
 }
 
 ::-moz-focus-inner {border:0;}
 input[type=button] {
+   background-color: maroon;
+   color: yellow;    
    font-weight: bold;
-   background-color: white;
    border-color: maroon;
    border-radius: 12px;
    cursor: pointer;
@@ -168,8 +180,8 @@ input[type=button] {
 }
 
 input[type=button]:hover {
-   background-color: maroon;
-   color: yellow;
+   background-color: white;
+   color: black;
 }
 input[type=button]:active {
    background-color: yellow;
@@ -181,14 +193,14 @@ input[type=button]:disabled {
    cursor: default;
 }
 input[type=range] {
-  -webkit-appearance: none;  /* Override default CSS styles */
+  -webkit-appearance: none;
   appearance: none;
-  width: 90%; /* Full-width */
-  height: 15px; /* Specified height */
-  background: gray; /* Grey background */
-  outline: none; /* Remove outline */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  width: 90%; 
+  height: 15px;
+  background: gray;
+  outline: none; 
+  opacity: 0.7; 
+  -webkit-transition: 0.3s; 
   margin-top: 10px;
   cursor: pointer;
 }
@@ -202,7 +214,13 @@ input[type=range]:disabled {
    background-color: grey;
    cursor: default;
 }
-
+input[type=checkbox] {
+    vertical-align: middle;
+    cursor: pointer;
+}
+input[type=checkbox]:disabled {
+   cursor: default;
+}
 
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -242,7 +260,6 @@ input[type=range]::-moz-range-thumb {
 div.results {
    float: left;
    margin: 10px;
-   display: none;
    width: 620px;
 }
 div.cross {
@@ -254,11 +271,14 @@ div.cross {
   font-weight: bold;
   padding: 5px;
   text-align: center;
-  margin-top: 5px;
-  overflow: hidden scroll;
-  height: 240px;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 270px;
   text-align: left;
   border-radius: 4px;
+  transition: 0.5s;  
+  opacity: 0;
 }
 
 #progress {
@@ -282,7 +302,6 @@ div.cross {
   text-align: center;
   font-weight: bold;
   line-height: 30px;
-  font-family: verdana;
   font-size: 80%;
   border-radius: 4px;
 }
@@ -299,7 +318,8 @@ div.plants {
 
 div.nofound {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 90px;
+  line-height: 30px
 }
 
 div.planter {
@@ -341,7 +361,7 @@ div.empty {
   opacity: 0.7;
 }
 
-div.genes span, div.result span {
+div.genes span, div.result span, div.checks span {
    background-image: url("../img/genes.png");
    background-color: transparent;
    background-repeat: no-repeat;
@@ -366,16 +386,29 @@ span.Z { background-position: -200px 0px; }
 span.E { background-position: -225px 0px; }
 
 div.nojs {
-	text-align: center;
-	background-color: black;
-	height: 40px;
-	color: yellow;
-	font-size: 120%;
-	font-family: Arial;
-	line-height: 40px;
-	font-weight: bold;
+  text-align: center;
+  background-color: black;
+  height: 40px;
+  color: yellow;
+  font-size: 120%;
+  font-family: Arial;
+  line-height: 40px;
+  font-weight: bold;
 }
 
 span.red {
-    color: red;
+  color: red;
+}
+
+div.tip {
+  border: 3px solid gray;
+  border-radius: 10px;
+  background-color: white;
+  width: 60%;
+  margin: 80px auto;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 60%;
+  color: dimgrey;
+  line-height: 20px;  
 }
