@@ -4,15 +4,41 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="content-language" content="en" />
   <meta http-equiv="Expires" content="now" />
-  <link rel="icon" sizes="32x32" href="icons/favicon-32x32.png" />
-  <link rel="icon" sizes="16x16" href="icons/favicon-16x16.png" />  
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="icon" sizes="16x16" type="image/png" href="icons/16x16.png" />  
+  <link rel="icon" sizes="32x32" type="image/png" href="icons/32x32.png" />
+  <link rel="icon" sizes="48x48" type="image/png" href="icons/48x48.png" />
+  <link rel="icon" sizes="64x64" type="image/png" href="icons/64x64.png" />
+  <link rel="icon" sizes="96x96" type="image/png" href="icons/96x96.png" />
+  <link rel="icon" sizes="152x152" type="image/png" href="icons/152x152.png" />
+  <link rel="icon" sizes="192x192" type="image/png" href="icons/192x192.png" />
+  
   <meta name="robots" content="ALL, INDEX, FOLLOW" />
   <meta name="resource-type" content="document" />
   <meta name="author" content="alierum" />
   <meta name="distribution" content="Global" />
   <meta name="description" content="Crossbreeding" />
   <meta name="keywords" content="crossbreeding, RUST, game, tool, plants, planter, pumpkin, potato, corn, hemp" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <!--  Apple/iOS headers -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="XBreeding">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-icon" sizes="64x64" href="icons/64x64.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="icons/120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="icons/144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="icons/152x152.png" />
+  <link rel="apple-touch-icon" sizes="167x167" href="icons/167x167.png" />
+   
+  <!-- Microsoft Windows Phone/Tablet headers -->
+  <meta name="application-name" content="XBreeding" />  
+  <meta name="msapplication-TileColor" content="#000000"/>
+  <meta name="msapplication-square70x70logo" content="icons/tile_small.png"/>
+  <meta name="msapplication-square150x150logo" content="icons/tile_medium.png"/>
+  <meta name="msapplication-square310x310logo" content="icons/tile_large.png"/>
+  <meta name="msapplication-wide310x150logo" content="icons/tile/tile_wide.png" />
+  
   <meta name="DC.title" content="Crossbreeding. A Farmer tool for RUST" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Crossbreeding. A Farmer tool for RUST" />
@@ -28,36 +54,46 @@
     <div class="controls">
         <div class="clones">
             <label id="label_clones" for="clones">Clones:</label>
-            <textarea wrap="on" name="clones" id="clones" cols="6" rows="10" placeholder="" onfocusout="validate_textarea();" onkeyup="validate_textarea();"></textarea>
-            <input type="button" id="reset" value="RESET" onclick="reset_form();" />
+            <textarea wrap="on" name="clones" id="clones" cols="6" rows="10" placeholder="" onmouseenter="enter_textarea();" onmouseleave="exit(); validate_textarea();" onkeyup="validate_textarea();" onfocus="enter_textarea();" onblur="exit();"></textarea>
+            <input type="button" id="reset" value="RESET" onclick="reset_form();" onmouseenter="enter_reset();" onmouseleave="exit();" />
         </div>
         <div class="head">
-            <div class="target">
+            <div class="target" onmouseover="enter_target();" onmouseout="exit();">
                 <label class="label_target" id="label_target" for="sliders">Target:</label>
                 <div id="sliders" class="sliders">
                     <div>
-                        <input type="range" name="sliderH" min="0" max="6" value="0" class="sliderH" id="sliderH" oninput="validate_sliders();">
+                        <input type="range" name="sliderH" min="0" max="6" value="0" class="sliderH" id="sliderH" oninput="validate_sliders();" onfocus="enter_target();" onblur="exit();">
                         <span id="targetH">H</span>
                     </div>
                     <div>
-                        <input type="range" name="sliderY" min="0" max="6" value="0" class="sliderY" id="sliderY" oninput="validate_sliders();">
+                        <input type="range" name="sliderY" min="0" max="6" value="0" class="sliderY" id="sliderY" oninput="validate_sliders();" onfocus="enter_target();" onblur="exit();">
                         <span id="targetY">Y</span>
                     </div>
                     <div>
-                        <input type="range" name="sliderG" min="0" max="6" value="0" class="sliderG" id="sliderG" oninput="validate_sliders();">
+                        <input type="range" name="sliderG" min="0" max="6" value="0" class="sliderG" id="sliderG" oninput="validate_sliders();" onfocus="enter_target();" onblur="exit();">
                         <span id="targetG">G</span>
                     </div>
                 </div>
             </div>
+            <div class="filters" onmouseover="enter_filters();" onmouseout="exit();">
+                <label class="label_filters" id="label_filters" for="checks">Filters:</label>
+                <div id="checks" class="checks">
+                    <div>
+                        <input type="checkbox" id="checkX" name="checkX" value="checkX" onfocus="enter_filters();" onblur="exit();"><span class="X"></span>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="checkW" name="checkW" value="checkW" onfocus="enter_filters();" onblur="exit();"><span class="W"></span>
+                    </div>
+                </div>                    
+            </div>
             <div class="calculate">
-               <input type="button" id="calculate" value="CALCULATE" onclick="calculate();" />
+               <input type="button" id="calculate" value="CALCULATE" onclick="calculate();" onmouseenter="enter_calculate();" onmouseleave="exit();" onfocus="enter_calculate();" onblur="exit();"/>
             </div>
         </div>
         <div id="progress">
             <div id="bar"></div>
         </div>
         <div class="results" id="results">
-            <label id="label_results">Results:</label>
             <div class="cross" id="cross"></div>
         </div>
     </div>
