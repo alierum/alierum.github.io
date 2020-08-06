@@ -16,15 +16,20 @@ More info:
 
 TO DO:
 ------
-- Fix rankings when there are Xs and Ws in the solution.
 - Autosplit the clone list while typing.
 - Different planter configuration: 3 and 9.
+- Autoajust page height to tablets' screen.
+- Confirm RESET.
 
 DONE:
 -----
+- Improvement in rankings when there are wilcards.
+- Fix rankings when there are Xs and Ws in the solution.
+- Maximum number of result shown raised to 50.
 - Filters to include X and W genes in the results.
 - Tooltips.
 - Format the output like the actual planter configuration.
 - Link to the repository.
 - Control colours when disabled.
 - Error message when inputs are wrong.
+
