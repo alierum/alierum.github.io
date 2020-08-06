@@ -343,6 +343,7 @@ div.genes, div.result, div.empty {
   padding: 2px;
   float: left;
   height: 30px;
+  text-align: center;
 }
 
 div.genes {
