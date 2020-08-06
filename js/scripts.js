@@ -69,9 +69,7 @@ function extract_clones(text) {
     return a;
 }
 
-
 function validate_clones() {
-    //let rows = extract_clones(document.getElementById("clones").value);
     let rows = extract_clones(clones.value);
     if (rows.length == 0) {
       return false;
@@ -109,7 +107,6 @@ function enter_reset() {
     showTip("Reset your inputs");
 }
 
-
 function validate_textarea() {
     if (validate_clones()) {
         clones.style.borderColor = "maroon";
@@ -125,7 +122,6 @@ function validate_textarea() {
 function extract_target(text) {
     return text.toUpperCase().trim();
 }
-
 
 function init() {
     clones = document.getElementById("clones");
@@ -147,11 +143,8 @@ function init() {
     allowW = document.getElementById("checkW");
     validate_textarea();
     validate_sliders();
-    progress(0);
+    progress("",0);
     showResults("");
-    //console.log(extract_clones(clones.value));
-  //console.log(rank("YCGHGH".split(""), count("HHHGGG",1)));
-   //console.log(possible("Z", [Number(slY.value), Number(slH.value), Number(slG.value), 0, 0, 0]));
 }
 
 function validate() {
@@ -168,13 +161,11 @@ function validate() {
     }
 }
 
-function progress(perc) {
+function progress(msg, perc) {
     perc = Math.min(100, perc);
     bar.style.width = perc + "%";
-    cross.innerHTML = '<div class="tip">Calculating... '+perc+'%</div>';
+    cross.innerHTML = '<div class="tip">'+msg+perc+'%</div>';
 }
-
-var per = 0;
 
 function count(geno, factor) {
   let v = new Array(9);
@@ -205,23 +196,71 @@ function count(geno, factor) {
 }
 
 function rank(geno, obj) {
-    let f = 0.0;
     let v = count(geno, 1);
-    //console.log(v, obj);
-    f += Math.max(0, obj[H] - v[H] - v[HG]/4 - v[HY]/4);
-    f += Math.max(0, obj[Y] - v[Y] - v[YG]/4 - v[HY]/4);
-    f += Math.max(0, obj[G] - v[G] - v[HG]/4 - v[YG]/4);
-    //f += Math.max(0, obj[H] - v[HY])/2;
-    //f += Math.max(0, obj[H] - v[HG])/2;
-    //f += Math.max(0, obj[Y] - v[HY])/2;
-
-    return f;
+    if (obj[0] + obj[1] + obj[2] == 0) {
+        // no target only wildcards penalises
+        return 0.1 * (v[HG] + v[HY] + v[YG]) + 
+                v[X] * 1.5 + v[WX] * 2.0 + v[W] * 3;
+    } else {
+        // base
+        let fH = Math.max(0, obj[H] - v[H]);
+        let fY = Math.max(0, obj[Y] - v[Y]);
+        let fG = Math.max(0, obj[G] - v[G]);
+        // console.log(fH, fY, fG);
+        
+        // wildcards
+        let wc = 0;
+        let cont = true;
+        while (cont && fH > 0) {
+            if (v[HY] > 0) {
+                v[HY]--;
+                fH--;
+                wc++;
+            } else if (v[HG] > 0) {
+                v[HG]--;
+                fH--;
+                wc++;
+            } else {
+                cont = false;
+            }
+        }
+        cont = true;
+        while (cont && fY > 0) {
+            if (v[HY] > 0) {
+                v[HY]--;
+                fY--;
+                wc++;
+            } else if (v[YG] > 0) {
+                v[YG]--;
+                fY--;
+                wc++;
+            } else {
+                cont = false;
+            }
+        }
+        cont = true;
+        while (cont && fG > 0) {
+            if (v[HG] > 0) {
+                v[HG]--;
+                fG--;
+                wc++;
+            } else if (v[YG] > 0) {
+                v[YG]--;
+                fG--;
+                wc++;
+            } else {
+                cont = false;
+            }
+        }
+        return fH + fY + fG + wc * 0.1 +
+                v[X] * 0.6 + v[WX] * 1.2 + v[W] * 1.8;
+    }
 }
 
 function crossing(g1, g2, g3, g4) {
   let v = count([g1, g2, g3, g4], 0.6);
   let m = Math.max(...v);
-  //console.log(v, m);
+
   let geno = new Array(0);
   if (v[Y] == m) {
       geno.push('Y');
@@ -238,9 +277,7 @@ function crossing(g1, g2, g3, g4) {
   if (v[X] == m) {
       geno.push('X');
   }
-  /*if (geno.length > 1) {
-      console.log("Crossing:", geno);
-  }*/
+
   if (geno.length == 1) {
     return geno[0];
   } else {
@@ -254,6 +291,7 @@ function crossing(g1, g2, g3, g4) {
       } else if (gg == "H,G" || gg == "G,H") {
         return 'C';
       } else {
+        // Error
         console.log(gg);
         return 'E';
       }
@@ -273,28 +311,21 @@ function html_genes(geno, style) {
     return html;
 }    
 
-function possible(geno, objective) {
+function possible(geno, obj) {
     let c = count(geno, 1)
-    return (objective[H] == 0 &&
-            objective[Y] == 0 &&
-            objective[G] == 0) ||
-           (c[H] > 0 && objective[H] > 0) || 
-           (c[Y] > 0 && objective[Y] > 0) || 
-           (c[G] > 0 && objective[G] > 0) ||
-           (c[HY] > 0 && objective[H] > 0) ||
-           (c[HY] > 0 && objective[Y] > 0) ||
-           (c[HG] > 0 && objective[H] > 0) ||
-           (c[HG] > 0 && objective[G] > 0) ||
-           (c[YG] > 0 && objective[Y] > 0) ||
-           (c[YG] > 0 && objective[G] > 0);
+    return (obj[H] + obj[Y] + obj[G] == 0) ||
+           (c[H] > 0 && obj[H] > 0) || 
+           (c[Y] > 0 && obj[Y] > 0) || 
+           (c[G] > 0 && obj[G] > 0);
 }
 
 function calcLoop(pool, objective) {
     var solutions = Array(0);
+    var msg = "Calculating " + pool.length ** 4 + " combinations... ";
     var ii = 0,
     nextInteration = function() {
       if (ii === pool.length) {
-        progress(100);
+        progress("Finished. ",100);
         //console.log(solutions.length);
 
         // sort by rank
@@ -302,27 +333,22 @@ function calcLoop(pool, objective) {
 
         // add results to the html div
         let html = "";
-        for (let i = 0; i < Math.min(solutions.length,20); i++) {
+        for (let i = 0; i < Math.min(solutions.length,100); i++) {
             html += '<div class="planter"><div class="line">';
+            
             html += html_genes(solutions[i][2], "genes");
             html += html_genes("", "empty");
             html += html_genes(solutions[i][3], "genes");
             
-            
             html += html_genes("", "empty");
             html += html_genes(solutions[i][1], "result");
-            //html += solutions[i][0].toFixed(3);
             html += html_genes("", "empty");
             
             html += html_genes(solutions[i][4], "genes");
+            // html += '<div class="empty">' + solutions[i][0].toFixed(3) + "</div>";
             html += html_genes("", "empty");
             html += html_genes(solutions[i][5], "genes");
             
-            
-            //html += '</div><div class="plants">';
-            //for (let j = 2; j < 6; j++) {
-            //    html += html_genes(solutions[i][j]);
-            //}
             html += '</div></div>';
         }
         if (html == "") {
@@ -342,14 +368,12 @@ function calcLoop(pool, objective) {
             let g = 0;
             while (ok && g < 6) {
               geno[g] = crossing(pool[ii][g], pool[j][g], pool[k][g], pool[l][g]);
-              //ok = possible(geno[g], objective);
               ok = (checkX.checked || geno[g] != 'X') && 
                    (checkW.checked || geno[g] != 'W') && 
                    ((checkX.checked && checkW.checked) || geno[g] != 'Z');
               g++;
             }
             if (ok) {
-                //console.log("Geno: " + geno);
                 let found = false;
                 let m = 0;
                 while (!found && m < solutions.length) {
@@ -360,13 +384,12 @@ function calcLoop(pool, objective) {
                     solutions.push([rank(geno, objective), 
                                     geno, 
                                     pool[ii], pool[j], pool[k], pool[l]]);
-                    //console.log(rank(geno, objective), geno);
                 }
             }
           }
         }
       }
-      progress(Math.round(100*ii/pool.length));
+      progress(msg, Math.round(100 * ii / pool.length));
       ii++;
       setTimeout(nextInteration, 1);
   };
@@ -396,7 +419,7 @@ function calculate() {
     if (button.value == "RESTART") {
         controls(true);
         button.value = "CALCULATE";        
-        progress(0);
+        progress("", 0);
         showResults("");
         //results.style.display = "none";
     } else {
@@ -411,10 +434,13 @@ function calculate() {
             let rows = extract_clones(clones.value);
             // console.log("Clones: " + rows.length);
             let pool = new Array(0);
+            let check = new Array(0);
+            let item = "";
             for (let i = 0; i < rows.length; i++) {
-                let item = rows[i];
-                if (-1 == pool.indexOf(item) && possible(item, objective)) {
+                item = rows[i];
+                if (-1 == check.indexOf(item) && possible(item, objective)) {
                     pool.push(item.split(""));
+                    check.push(item);
                 }
             }
             // console.log("Pool: " + pool.length);
