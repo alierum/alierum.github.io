@@ -19,7 +19,8 @@ TO DO:
 - Autosplit the clone list while typing.
 - Different planter configuration: 3 and 9.
 - Autoajust page height to tablets' screen.
-- Confirm RESET.
+- Confirm RESET and keep the HGY preset untouched.
+- Add an option to include the N best clones in a second iteration and show the N chained results.
 
 DONE:
 -----
