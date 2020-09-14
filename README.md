@@ -19,11 +19,11 @@ TO DO:
 - Autosplit the clone list while typing.
 - Different planter configuration: 3 and 9.
 - Autoajust page height to tablets' screen.
-- Confirm RESET and keep the HGY preset untouched.
 - Add an option to include the N best clones in a second iteration and show the N chained results.
 
 DONE:
 -----
+- Change RESET to CLEAR and keep the HGY and XW preset untouched.
 - Improvement in rankings when there are wilcards.
 - Fix rankings when there are Xs and Ws in the solution.
 - Maximum number of result shown raised to 50.
