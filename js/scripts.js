@@ -12,11 +12,6 @@ var clones, target, button, reset, results, cross, slH, slY, slG, spH, spY, spG,
 
 function reset_form() {
     clones.value = "";
-    slH.value = 0;
-    slY.value = 0;
-    slG.value = 0;
-    allowX.checked = false;
-    allowW.checked = false;
     validate_sliders();
     validate_clones();
 }
@@ -104,7 +99,7 @@ function enter_calculate() {
 }
 
 function enter_reset() {
-    showTip("Reset your inputs");
+    showTip("Clear your clone list");
 }
 
 function validate_textarea() {
@@ -376,7 +371,7 @@ function calcLoop(pool, objective) {
             if (ok) {
                 let found = false;
                 let m = 0;
-                while (!found && m < solutions.length) {
+                while (!found && m < solutions.length) { // avoids repeating solutions
                     found = solutions[m][1].toString() == geno.toString();
                     m++;
                 }
