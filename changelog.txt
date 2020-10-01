@@ -1,0 +1,29 @@
+0.60
+
+- New option to select one clone for using it in a second crop.
+- Exclude results that are in the initial clone list.
+- Tooltips 2.0.
+- The maximum number of result shown was lowered to 25 (nobody looks beyond the 10th).
+- Version number in the upper-right corner.
+- Report of the number of results and elapsed time at the end of the list.
+- Testing a visitor counter (kind of).
+- Some performance tunning.
+
+0.51
+- Change RESET button to CLEAR and keep the HGY and XW presets untouched.
+
+0.50
+- Improvement in rankings when there are wilcards in the results.
+- Fix rankings when there are Xs and Ws in the solution.
+
+0.40
+- Maximum number of result shown raised to 50.
+- Filters to include X and W genes in the results.
+- Tooltips.
+
+0.30
+- Format the output like the actual planter configuration.
+- Link to the repository.
+- Control colours when disabled.
+- Error message when inputs are wrong.
+

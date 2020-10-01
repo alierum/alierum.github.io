@@ -50,12 +50,12 @@
 <noscript><div class="nojs">This page needs javascript enabled in your browser</div></noscript>
 
 <div class="main">
-    <div class="title"><span class="xbreeding">XBreeding</span> - The RUST farmer's assistant<div class="alierum">by <a href="https://github.com/alierum/alierum.github.io" title="">alierum</a></div></div> 
+    <div class="title"><span class="xbreeding">XBreeding</span> - The RUST farmer's assistant<div class="version">V:0.60.0<br />by <a href="https://github.com/alierum/alierum.github.io" title="">alierum</a></div></div> 
     <div class="controls">
         <div class="clones">
             <label id="label_clones" for="clones">Clones:</label>
             <textarea wrap="on" name="clones" id="clones" cols="6" rows="10" placeholder="" onmouseenter="enter_textarea();" onmouseleave="exit(); validate_textarea();" onkeyup="validate_textarea();" onfocus="enter_textarea();" onblur="exit();"></textarea>
-            <input type="button" id="reset" value="CLEAR" onclick="reset_form();" onmouseenter="enter_reset();" onmouseleave="exit();" />
+            <input type="button" id="reset" value="CLEAR" onclick="reset_form();" onmouseenter="enter_reset();" onmouseleave="exit();" onfocus="enter_reset();" onblur="exit();" />
         </div>
         <div class="head">
             <div class="target" onmouseover="enter_target();" onmouseout="exit();">
@@ -84,21 +84,26 @@
                     <div>
                         <input type="checkbox" id="checkW" name="checkW" value="checkW" onfocus="enter_filters();" onblur="exit();"><span class="W"></span>
                     </div>
-                </div>                    
+                </div>
             </div>
             <div class="calculate">
                <input type="button" id="calculate" value="CALCULATE" onclick="calculate();" onmouseenter="enter_calculate();" onmouseleave="exit();" onfocus="enter_calculate();" onblur="exit();"/>
+               <input type="button" id="next" value="NEXT CROP" onclick="next();" onmouseenter="enter_next();" onmouseleave="exit();" onfocus="enter_next();" onblur="exit();"/>
+               <input type="button" id="restart" value="RESTART" onclick="restart();" onmouseenter="enter_restart();" onmouseleave="exit();" onfocus="enter_restart();" onblur="exit();"/>
             </div>
-        </div>
-        <div id="progress">
-            <div id="bar"></div>
+            <div id="progress">
+                <div id="bar"></div>
+            </div>
         </div>
         <div class="results" id="results">
             <div class="cross" id="cross"></div>
         </div>
+        <div class="tip" id="tip"></div>
     </div>
     <div class="footer">
       This software is in <em>beta</em>. That means that <strong>you should make a copy of your clones</strong> before trying the solutions proposed here.
+      <img src="https://raw.githubusercontent.com/alierum/alierum.github.io/master/img/stats.png" title="" alt=""/>
+      <!-- <iframe src="https://github.com/alierum/alierum.github.io/blob/master/img/stats.png" style="width:0;height:0;border:0; border:none;"></iframe> -->
     </div> 
 </div>
 

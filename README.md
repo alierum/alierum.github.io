@@ -18,19 +18,9 @@ TO DO:
 ------
 - Autosplit the clone list while typing.
 - Different planter configuration: 3 and 9.
-- Autoajust page height to tablets' screen.
-- Add an option to include the N best clones in a second iteration and show the N chained results.
-
-DONE:
------
-- Change RESET to CLEAR and keep the HGY and XW preset untouched.
-- Improvement in rankings when there are wilcards.
-- Fix rankings when there are Xs and Ws in the solution.
-- Maximum number of result shown raised to 50.
-- Filters to include X and W genes in the results.
-- Tooltips.
-- Format the output like the actual planter configuration.
-- Link to the repository.
-- Control colours when disabled.
-- Error message when inputs are wrong.
-
+- Autoajust page height to different screen sizes.
+- Use the best parents combination (all greens) if there are multiple possibilities.
+- Calculate all the possible "next crops" using one result a time and show the best.
+- Saving and recovering clone lists in the user's local storage.
+- Check to show all results
+- Check to show/hide tooltips
