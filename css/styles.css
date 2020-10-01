@@ -29,7 +29,7 @@ div.controls, div.title, div.footer {
   border-radius: 10px;
   width: 760px;
   margin: 5px auto;
-  padding: 10px;
+  padding: 5px 10px;
   overflow: auto;
   font-size: 15px;
 }
@@ -63,11 +63,12 @@ span.xbreeding {
   color: yellow;
   text-shadow: 2px 2px 2px black, 1px 1px 25px maroon, 0 0 6px red;
 }
-div.alierum {
+div.version {
   float: right;
-  font-size: 60%;
-  margin-top: 20px;
-  color: red;
+  margin-top: 3px;
+  line-height: 18px;
+  text-align: right;
+  font-size: 10px;
 }
 div.footer {
 	font-size: 60%;
@@ -84,7 +85,7 @@ label {
 div.clones {
   width: 100px;
   float: left;
-  margin: 10px 0px 10px 10px;
+  margin: 0 10px;
 }
 div.clones textarea {
   background-color: lightyellow;
@@ -96,7 +97,7 @@ div.clones textarea {
   resize: none;
   padding: 5px;
   margin-top: 5px;
-  height: 330px;
+  height: 370px;
   text-transform: uppercase;
   overflow: hidden scroll;
   outline: none;
@@ -111,7 +112,7 @@ div.head {
 div.target {
   width: 310px;
   float: left;
-  margin: 10px;
+  margin: 0 10px 0 0;
 }
 
 div.sliders, div.checks {
@@ -141,7 +142,7 @@ div.sliders div span {
 div.filters {
   width: 60px;
   float: left;
-  margin: 10px;
+  margin: 0 10px;
 }
 
 div.checks div {
@@ -151,8 +152,8 @@ div.checks div {
 
 div.calculate {
    float: right;
-   width: 200px;
-   margin-top: 30px;
+   width: 210px;
+   margin-top: 10px;
 }
 
 ::-moz-focus-inner {border:0;}
@@ -171,7 +172,20 @@ input[type=button] {
 #calculate {
    padding: 13px;
    font-size: 150%;
-   height: 75px;
+   height: 85px;
+}
+#next {
+	padding: 8px;
+	font-size: 130%;
+	height: 50px;
+	display: none;
+}
+#restart {
+	padding: 5px;
+	font-size: 100%;
+	height: 30px;
+	display: none;
+	margin-top: 5px;
 }
 #reset {
    padding: 5px;
@@ -259,8 +273,8 @@ input[type=range]::-moz-range-thumb {
 
 div.results {
    float: left;
-   margin: 10px;
-   width: 620px;
+   margin: 0;
+   width: 630px;
 }
 div.cross {
   background-color: lightyellow;
@@ -269,12 +283,12 @@ div.cross {
   border-width: 1px;
   font-size: 130%;
   font-weight: bold;
-  padding: 5px;
+  padding: 3px 5px;
   text-align: center;
   margin: 0;
   overflow-x: hidden;
   overflow-y: scroll;
-  height: 270px;
+  height: 322px;
   text-align: left;
   border-radius: 4px;
   transition: 0.5s;  
@@ -283,10 +297,10 @@ div.cross {
 
 #progress {
 	float: left;
-	width: 620px;
+	width: 100%;
 	background-color: lightyellow;
-	margin: 0 10px;
-	padding: 0px;
+	margin: 5px 0;
+	padding: 0;
 	height: 5px;
 	border-radius: 4px;
     border-color: maroon;
@@ -316,26 +330,34 @@ div.plants {
     float: right;
 }
 
-div.nofound {
+div.message {
   text-align: center;
-  margin-top: 90px;
-  line-height: 30px
+  margin-top: 50px;
+  line-height: 25px;
+  font-size: 75%;
 }
 
-div.planter {
-	/* width: 565px; */
-	border-width: 4px;
+div.planter, div.previous_planter {
+	border-width: 6px;
 	border-style: solid;
 	overflow: auto;
-	padding: 5px;
-	border-radius: 5px;
-	margin: 4px 0;
+	padding: 4px;
+	border-radius: 10px;
+	margin: 2px 0 2px 2px;
+    float:left;
+}
+div.planter {
 	border-color: cornflowerblue;
 	background-color: burlywood;
 }
-div.genes, div.result, div.empty {
+div.previous_planter {
+	border-color: teal;
+	background-color: peru;
+}
+
+div.genes, div.result, div.empty, div.previous, div.next {
   width: 175px;
-  margin: 2px;
+  margin: 2px 3px;
   border-width: 4px;
   border-style: solid;
   overflow: auto;
@@ -356,13 +378,23 @@ div.result {
   background-color: #444;
 }
 
+div.previous {
+  border-color: yellow;
+  background-color: #444;
+}
+
+div.next {
+  border-color: crimson;
+  background-color: #444;
+}
+
 div.empty {
   border-color: #787878;
   background-color: #787878;
   opacity: 0.7;
 }
 
-div.genes span, div.result span, div.checks span {
+div.genes span, div.result span, div.checks span, div.previous span, div.next span {
    background-image: url("../img/genes.png");
    background-color: transparent;
    background-repeat: no-repeat;
@@ -399,17 +431,52 @@ div.nojs {
 
 span.red {
   color: red;
+  font-weight: bold;
 }
 
 div.tip {
-  border: 3px solid gray;
-  border-radius: 10px;
-  background-color: white;
-  width: 60%;
-  margin: 80px auto;
-  text-align: center;
-  padding: 20px 0;
-  font-size: 60%;
-  color: dimgrey;
-  line-height: 20px;  
+	border: 1px solid black;
+	border-radius: 20px 20px 0 0;
+	background-color: yellow;
+	width: 500px;
+	margin: 368px auto auto 180px;
+	text-align: center;
+	padding: 0;
+	color: black;
+	position: absolute;
+    transition: 0.75s;
+    opacity: 0;
+    height: 80px;
+    display: table;
+    font-size: 90%;
+}
+div.tip div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+div.tip div p {
+    margin: 5px 0;
+}
+div.arrow {
+	background-image: url("../img/arrow.png");
+	width: 80px;
+	height: 80px;
+	float: left;
+	margin: 80px 0 0 3px;
+	background-repeat: no-repeat;
+}
+div.total {
+	width: 580px;
+	border-width: 3px;
+	border-style: solid;
+	overflow: auto;
+	padding: 5px;
+	border-radius: 10px;
+	margin: 4px 0 10px 2px;
+	float: left;
+	border-color: brown;
+	background-color: white;
+	font-size: 50%;
+	text-align: center;
 }
