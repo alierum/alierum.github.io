@@ -1,7 +1,10 @@
 XBreeding. The RUST farmer's assistant
 ======================================
 
+Program to calculate crossbreadings between your clones inside the game RUST of FacePunch.
 Copy the genes of your clones, select the desired result, and press CALCULATE.
+It can be used with Hemp, Corn, Pumpkins, and the recently added berries.
+Since it is implemented in JavaScript, there is no need of installing any software in your system.
 
 Try it at: [https://alierum.github.io/](https://alierum.github.io/).
 
