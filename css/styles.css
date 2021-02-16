@@ -252,6 +252,24 @@ input[type=range]::-moz-range-thumb {
   background: url('../img/genes.png');
 }
 
+input[type=text] {
+  background-color: lightyellow;
+  border-color: maroon;
+  border-style: solid;
+  border-width: 1px;
+  width: 160px;
+  font-size: 100%;
+  font-weight: bold;
+  color: maroon;
+  padding: 5px;
+  text-align: center;
+  margin-left: 25px;
+  text-transform: uppercase;
+  outline: none;
+  border-radius: 4px;
+  height: 15px;
+}
+
 .sliderY::-webkit-slider-thumb {
   background-position:  -0px 0px !important;
 }
