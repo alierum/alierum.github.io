@@ -1,3 +1,9 @@
+0.61
+
+- The parents are ordered to use first the fastest growing clones (more Gs).
+- Optional experiment's title (useful if you are doing several crossbreadings simultaneously).
+- Some tooltips improved.
+
 0.60
 
 - New option to select one clone for using it in a second crop.
