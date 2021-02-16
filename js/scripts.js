@@ -8,8 +8,10 @@ const HY = 6;
 const YG = 7;
 const HG = 8;
 
+const PAGE_TITLE = "XBreeding. The RUST farmer's assistant";
+
 // ugly globals
-var clones, target, b_calculate, b_reset, results, b_restart, b_next, cross, slH, slY, slG, spH, spY, spG, sliders, bar, allowX, allowW, checks, solutions, previous_expanded, previous_solutions, previous_rows, selected_geno, calculating, startTime;
+var clones, target, b_calculate, b_reset, results, b_restart, b_next, cross, experiment_title, slH, slY, slG, spH, spY, spG, sliders, bar, allowX, allowW, checks, solutions, previous_expanded, previous_solutions, previous_rows, selected_geno, calculating, startTime;
 
 function reset_form() {
     clones.value = "";
@@ -55,18 +57,42 @@ function validate_clone(geno) {
     return false;
 }
 
-function extract_clones(text) {
+function speed(geno) {
+    let gs = 0;
+    let ws = 0;
+    gens = geno.split("");
+    for (let i = 0; i < 6; i++) {
+        if (gens[i]=="G") {
+            gs++;
+        } else {
+            if (gens[i]=="W") {
+                ws--;
+            }
+        }
+    }
+    if (gs == 0) {
+        return ws;
+    }
+    return gs;
+}
+
+function extract_clones(text, sorted) {
     let _text = text.toUpperCase().trim().replace(/\n/g,"");
     let a = Array(0);
+    // Extract
     while (_text.length > 0) {
       a.push(_text.substr(0,6));
       _text = _text.substr(6);
+    }
+    // Sort    
+    if (sorted) {
+        a.sort(function(c1, c2){return speed(c2) - speed(c1)});
     }
     return a;
 }
 
 function validate_clones() {
-    let rows = extract_clones(clones.value);
+    let rows = extract_clones(clones.value, false);
     if (rows.length == 0) {
       return false;
     }
@@ -79,6 +105,21 @@ function validate_clones() {
     return ok;
 }
 
+function enter_title() {
+    if (!calculating && clones && !experiment_title.disabled) {
+        showTip("Enter a <strong>title</strong> for the experiment (optional).");
+    }    
+}
+
+function exit_title() {
+    if (experiment_title.value != "") {
+        document.title = experiment_title.value.toUpperCase().trim() + " - " + PAGE_TITLE;
+    } else {
+        document.title = PAGE_TITLE;
+    }
+    exit();
+}
+
 function exit() {
     if (!calculating) {
         showTip("");
@@ -87,14 +128,14 @@ function exit() {
 
 function enter_restart() {
     if (!calculating && b_restart && !b_restart.disabled) {
-        showTip("Start a new calculation.");
+        showTip("Start a <strong>new</strong> calculation.");
     }
 }
 
 function enter_next() {
     if (!calculating && solutions.length > 0) {
         if (!b_next.disabled) {
-            showTip('<p>Use the selected result in the next crop.</p><p><span class="red">EXPERIMENTAL FEATURE</span></p>');
+            showTip('<p>Use the selected result in the <strong>next crop</strong>.</p>');
         } else {
             if (targets_set()) {
                 showTip('<p>Select a <strong>result</strong> to use it in the next crop.</p><p><span class="red">EXPERIMENTAL FEATURE</span></p>');
@@ -107,7 +148,7 @@ function enter_next() {
 
 function enter_textarea() {
     if (!calculating && clones && !clones.disabled) {
-        showTip("Enter your clones, one per line.");
+        showTip("Enter your <strong>clones</strong>, one per line.");
     }
 }
 
@@ -125,13 +166,13 @@ function enter_filters() {
 
 function enter_calculate() {
     if (!calculating && b_calculate && !b_calculate.disabled) {
-        showTip("Calculate crossbreadings using the <strong>clones</strong> in the list.");
+        showTip("<strong>Calculate crossbreadings</strong> using the clones in the list.");
     }
 }
 
 function enter_reset() {
     if (!calculating && b_reset && !b_reset.disabled) {
-        showTip("Clear your clone list.");
+        showTip("<strong>Clear</strong> your clone list.");
     }
 }
 
@@ -602,8 +643,8 @@ function calculate() {
 
             let objective = [Number(slY.value), Number(slH.value), Number(slG.value), 0, 0, 0];
 
-            let rows = extract_clones(clones.value);
-            previous_rows = extract_clones(clones.value);
+            let rows = extract_clones(clones.value, true);
+            previous_rows = extract_clones(clones.value, false);
             previous_expanded = new Array(0);
             previous_solutions = new Array(0);
             let m = 0;
@@ -694,6 +735,7 @@ function init() {
     checks = document.getElementById("checks");
     allowX = document.getElementById("checkX");
     allowW = document.getElementById("checkW");
+    experiment_title = document.getElementById("experiment_title");
     solutions = Array(0);
     previous_rows = Array(0);
     selected_geno = "";
@@ -701,6 +743,6 @@ function init() {
     validate_sliders();
     progress("",0);
     showResults("");
-    showTip("");
     calculating = false;
+    exit_title();
 }
