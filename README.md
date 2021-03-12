@@ -9,6 +9,8 @@ No relation with FacePunch Studios here.
 
 Try it at: [https://alierum.github.io/](https://alierum.github.io/).
 
+User manual: [https://github.com/alierum/alierum.github.io/wiki/XBreeding-Manual](https://github.com/alierum/alierum.github.io/wiki/XBreeding-Manual).
+
 More info:
 ----------
 [Rust](https://rust.facepunch.com/).
