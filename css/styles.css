@@ -498,3 +498,24 @@ div.total {
 	font-size: 50%;
 	text-align: center;
 }
+a.help {
+    border-width: 3px;
+    border-radius: 6px;
+    border-style: solid;
+    font-weight: bold;
+    padding: 0 1px;    
+}
+
+a.help:link, a.help:visited {
+    color: yellow;
+    background-color: maroon;
+    border-color: maroon;
+}
+a.help:hover, a.help:active {
+    color: maroon;
+    background-color: yellow;
+    border-color: yellow;
+}
+a.help:focus {
+   outline: none;
+}
