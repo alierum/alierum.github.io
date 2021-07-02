@@ -1,3 +1,11 @@
+0.62
+
+- Now it is possible to configure the calculation by passing parameters in the url (GET).
+
+0.61.2
+
+- Link to manual and tutorial.
+
 0.61
 
 - The parents are ordered to use first the fastest growing clones (more Gs).
@@ -32,4 +40,3 @@
 - Link to the repository.
 - Control colours when disabled.
 - Error message when inputs are wrong.
-
