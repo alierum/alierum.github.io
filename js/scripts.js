@@ -84,7 +84,7 @@ function extract_clones(text, sorted) {
       a.push(_text.substr(0,6));
       _text = _text.substr(6);
     }
-    // Sort    
+    // Sort
     if (sorted) {
         a.sort(function(c1, c2){return speed(c2) - speed(c1)});
     }
@@ -108,7 +108,7 @@ function validate_clones() {
 function enter_title() {
     if (!calculating && clones && !experiment_title.disabled) {
         showTip("Enter a <strong>title</strong> for the experiment (optional).");
-    }    
+    }
 }
 
 function exit_title() {
@@ -277,7 +277,7 @@ function rank(geno, obj) {
     let v = count(geno, 1);
     if (obj[0] + obj[1] + obj[2] == 0) {
         // no target only wildcards penalises
-        return 0.1 * (v[HG] + v[HY] + v[YG]) + 
+        return 0.1 * (v[HG] + v[HY] + v[YG]) +
                 v[X] * 1.5 + v[WX] * 2.0 + v[W] * 3;
     } else {
         // base
@@ -399,13 +399,13 @@ function planter_click(elem) {
 }
 
 function html_genes(geno, style, prev, width) {
-    let html = '<div class="'+style+'" '; 
+    let html = '<div class="'+style+'" ';
     if (prev) {
-        html = '<div class="previous" '; 
+        html = '<div class="previous" ';
     }
     if (geno.length == 0) {
         html += ' style="width: '+width+'px;" ';
-    } 
+    }
     html += '>';
     for (let g = 0; g < geno.length; g++) {
         html += '<span class="'+geno[g]+'"></span>';
@@ -417,8 +417,8 @@ function html_genes(geno, style, prev, width) {
 function possible(geno, obj) {
     let c = count(geno, 1)
     return (obj[H] + obj[Y] + obj[G] == 0) ||
-           (c[H] > 0 && obj[H] > 0) || 
-           (c[Y] > 0 && obj[Y] > 0) || 
+           (c[H] > 0 && obj[H] > 0) ||
+           (c[Y] > 0 && obj[Y] > 0) ||
            (c[G] > 0 && obj[G] > 0);
 }
 
@@ -547,7 +547,7 @@ function calcLoop(pool, objective) {
                         while (ok && g < 6) {
                             gg = crossing(pool[ii][g], pool[j][g], pool[k][g], pool[l][g]); // calculate crossbreading
                             ok = (allowX.checked || gg != 'X') &&                           // OK if it passes the filters
-                                   (allowW.checked || gg != 'W') && 
+                                   (allowW.checked || gg != 'W') &&
                                    ((allowX.checked && allowW.checked) || gg != 'Z');
                             g++;
                             geno += gg;
@@ -556,7 +556,7 @@ function calcLoop(pool, objective) {
                             if (pool.indexOf(geno) == -1) {
                                 found = false;
                                 let m = 0;
-                                while (!found && m < solutions.length) { // avoids repeating solutions. 
+                                while (!found && m < solutions.length) { // avoids repeating solutions.
                                     found = solutions[m][1] == geno; // TODO: Replace solution if parents are better (more greens). Idea: list with clones fitness to check and f = p1+p2+p3+p4. Save f for parentes in solutions[6]
                                     m++;
                                 }
@@ -573,8 +573,8 @@ function calcLoop(pool, objective) {
                                     }
                                     // add it
                                     if (!found) {
-                                        solutions.push([rank(geno, objective), 
-                                                        geno, 
+                                        solutions.push([rank(geno, objective),
+                                                        geno,
                                                         pool[ii], pool[j], pool[k], pool[l]]);
                                     }
                                 }
@@ -713,6 +713,45 @@ function showTip(text) {
     }
 }
 
+function load_from_url() {
+    let url = new URL(window.location.href);
+    // clones
+    let c = url.searchParams.get("c");
+    if (c!=null) {
+        clones.value = c.substr(0,1200); // up to 200 clones
+        validate_clones();
+    }
+    // Target
+    let t = url.searchParams.get("t");
+    if (t!=null) {
+        t = t.substr(0,6).toUpperCase();
+        let v = count(t,1);
+        slH.value = v[H];
+        slY.value = v[Y];
+        slG.value = v[G];
+        validate_sliders()
+    }
+    // filters
+    let f = url.searchParams.get("f");
+    if (f!=null) {
+        f = f.substr(0,2).toUpperCase();
+        let v = count(f,1);
+        allowX.checked = v[X] != 0;
+        allowW.checked = v[W] != 0;
+    }
+    // experiment title
+    let e = url.searchParams.get("e");
+    if (e!=null) {
+        e = e.substr(0,10).toUpperCase();
+        experiment_title.value = e;
+    }
+    // calculate: go
+    let g = url.searchParams.get("g");
+    if (g!=null && b_calculate.disabled == false) {
+        calculate();
+    }
+}
+
 function init() {
     calculating = true;
     clones = document.getElementById("clones");
@@ -745,4 +784,5 @@ function init() {
     showResults("");
     calculating = false;
     exit_title();
+    load_from_url();
 }
