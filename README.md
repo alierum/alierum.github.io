@@ -11,6 +11,25 @@ Try it at: [https://alierum.github.io/](https://alierum.github.io/).
 
 User manual: [https://github.com/alierum/alierum.github.io/wiki/XBreeding-Manual](https://github.com/alierum/alierum.github.io/wiki/XBreeding-Manual).
 
+
+Interaction with other programs
+-------------------------------
+
+To recieve parameters from other programs, use the url (via GET).
+
+Parameters (begining with **?** and concatenated using **&**):
+
+- **e**: experiment name, e.g. `c=hemp` (maximum 10 characters)
+- **c**: clone list, e.g. `c=yyxxhygghywy` (groups of 6 characters)
+- **t**: target, e.g. `t=yyyggg` (same as `t=gygygy`)
+- **f**: filters, e.g. `f=w` or `f=x` or `f=wx`
+- **g**: go, launches the calculation, e.g. `g` (same as `g=something`)
+
+For example:
+
+[https://alierum.github.io/?e=hemp&c=yyxgyygygwgghhggygggyhwhwhgghhyyghyh&t=yyyggg&f=x&g](https://alierum.github.io?e=hemp&c=yyxgyygygwgghhggygggyhwhwhgghhyyghyh&t=yyyggg&f=x&g).
+
+
 More info:
 ----------
 [Rust](https://rust.facepunch.com/).
@@ -29,5 +48,4 @@ TO DO:
 - Check to show all results.
 - Check to show/hide tooltips.
 - Iterative stoppable process showing the best result found so far using several generations.
-- Manual and Tutorial.
 
